@@ -2,6 +2,8 @@
 
 #include <vulkan/vulkan.hpp>
 #include <SDL3/SDL.h>
+#include <vector>
+#include <string>
 
 class VulkanRenderer
 {
@@ -10,10 +12,7 @@ public:
     ~VulkanRenderer();
 
     VkInstance createInstance();
-    // VkPhysicalDevice selectPhysicalDevice(const VkInstance vulkanInstance);
-    // VkDevice createDevice(const VkInstance vulkanInstance);
-
-    void printInstanceInfoInConsole(const VkInstance vulkanInstance);
+    void createGraphicsPipeline(const std::string& vertFilePath, const std::string& fragFilePath);
 
 private:
     SDL_Window *window;
@@ -21,4 +20,5 @@ private:
     VkDevice device;
 
     void cleanupVulkan();
+    static std::vector<char> readFile(const std::string& filePath);
 };

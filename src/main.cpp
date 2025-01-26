@@ -10,7 +10,6 @@
 #include "vkrender.hpp"
 
 #define APP_NAME "Space Display"
-#define ARRAY_SIZE(a) (sizeof(a) / sizeof(a[0]))
 
 int main(int argc, char* argv[]) {
     SDL_Init(SDL_INIT_VIDEO);
@@ -18,14 +17,10 @@ int main(int argc, char* argv[]) {
 
     SDL_Log("Initialized with errors: %s", SDL_GetError());
 
-    Uint32 count_instance_extensions;
-    const char * const *instance_extensions = SDL_Vulkan_GetInstanceExtensions(&count_instance_extensions);
+    VulkanRenderer vulkanrenderer = VulkanRenderer(window);
+    VkInstance vkinstance = vulkanrenderer.createInstance();
+    vulkanrenderer.createGraphicsPipeline("shaders/simple_shader.vert.spv", "shaders/simple_shader.frag.spv");
 
-    
-    //VulkanRenderer vulkanRenderer(window);
-    //VkInstance vulkanInstance = vulkanRenderer.createInstance();
-
-    //bool test = SDL_Vulkan_CreateSurface(window, vulkanInstance, nullptr, nullptr);
 
     bool running = true;
     while(running) {
